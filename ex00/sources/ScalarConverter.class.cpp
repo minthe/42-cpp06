@@ -6,7 +6,7 @@
 /*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 10:56:33 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/10 17:09:02 by vfuhlenb         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:51:33 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,55 @@
 #include <cstdlib>
 #include <regex>
 
-void	nan()
+// void	castChar(std::string str)
+// {
+// 	double c = strtol(str.c_str(), NULL, 10);
 
-void	printOutput(std::string s_char, int* s_int, float* s_float, double* s_double)
-{
-	std::cout << "char: " << s_char << std::endl;
-	if (s_int)
-		std::cout << "int: " << s_int << std::endl;
-	else
-		std::cout << "impossible" << std::endl;
-	if (s_float)
-		std::cout << "float: " << std::fixed << std::showpoint << std::setprecision(1) << s_float << "f" << std::endl;
-	else
-		std::cout << "impossible" << std::endl;
-	if (s_double)
-		std::cout << "double: " << s_double << std::endl;
-	else
-		std::cout << "impossible" << std::endl;
-}
+// 	// if (str.length() == 1 && std::regex_match(str.c_str(), printable_chars) && std::regex_match(str.c_str(), no_digits)) // checks for printable char
+// 	// 	std::cout << "char: '" << static_cast<char>(str.c_str()[0]) << "'" << std::endl;
+// 	// else if (std::regex_match(strtol(str.c_str(), NULL, 10), non_printable_chars) // check for non-printable char
+// 	// 	std::cout << "Non displayable" << std::endl;
+// }
 
-void	ScalarConverter::convert(std::string string)
+void	ScalarConverter::convert(std::string str)
 {
 
 	std::regex printable_chars("^[ -~]+$");
 	std::regex non_printable_chars("[^\x20-\x7E]");
 	std::regex no_digits("^[^0-9]*$");
+	std::regex is_digit("^[0-9]*$");
 	std::regex is_int("^[+-]?\\d+$");
-	std::regex is_double("[+-]?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))([eE][+-]?[0-9]+)?([fF]|(l{0,2}))");
-	std::regex is_float("[+-]?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))");
+	std::regex is_double("[+-]?\\d*\\.\\d+");
+	std::regex is_float("[+-]?\\d*\\.\\d+[f]");
 	std::regex pseudoLiterals_float("(\\+inff|-inff|nanf)");
 	std::regex pseudoLiterals_double("(\\+inf|-inf|nan)");
 
-	double	s_double;
-	(void)s_double;
+	double	d = strtod(str.c_str(), NULL);
 	
-	// SCALAR CHAR
-	if (string.length() == 1 && std::regex_match(string.c_str(), non_printable_chars)) // check for non-printable char
-		std::cout << "Non displayable" << std::endl;
-	else if (string.length() == 1 && std::regex_match(string.c_str(), printable_chars) && std::regex_match(string.c_str(), no_digits)) // checks for printable char
-		std::cout << "char: '" << static_cast<char>(string.c_str()[0]) << "'" << std::endl;
-
-	// SCALAR INT
+	// CAST INT
+	if (std::regex_match(str.c_str(), is_int))
+		std::cout << "int: " << static_cast<int>(d) << std::endl;
+	else if (std::regex_match(str.c_str(), pseudoLiterals_float) || std::regex_match(str.c_str(), pseudoLiterals_double))
+		std::cout << "int: impossible" << std::endl;
 	
-	// SCALAR FLOAT
-	if (string == "-inff" || string == )
-
-// 	a = std::strtod(string.c_str(), NULL);
-
-// static_cast<double>(s_double) << std::endl;
+	// CAST FLOAT
+	if (std::regex_match(str.c_str(), is_float))
+		std::cout << "float: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<float>(d) << "f" << std::endl;
+	else if (std::regex_match(str.c_str(), pseudoLiterals_float))
+		std::cout << "float: " << str << std::endl;
+	else if (std::regex_match(str.c_str(), pseudoLiterals_double))
+		std::cout << "float: " << str << "f" << std::endl;
+	else
+		std::cout << "float: impossible" << std::endl;
 	
+	// CAST DOUBLE
+	if (std::regex_match(str.c_str(), is_double))
+		std::cout << "double: " << static_cast<double>(d) << std::endl;
+	else if (std::regex_match(str.c_str(), is_float))
+		std::cout << "double: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<double>(d) << std::endl;
+	else if (std::regex_match(str.c_str(), pseudoLiterals_double))
+		std::cout << "double: " << str << std::endl;
+	else
+		std::cout << "double: impossible" << std::endl;
 
 }
