@@ -6,17 +6,21 @@
 /*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 10:56:33 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/10 19:33:33 by vfuhlenb         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:58:06 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ScalarConverter.class.hpp"
 #include <cstdlib>
-#include <regex>
-
+/*
 bool	is_int(std::string str)
 {
-	
+	int	i = 0;
+	const char* cstr = str.c_str();
+	if (str.c_str()[0] == '+' || str.c_str()[0] == '-')
+		i = 1;
+	while ()
+	double c = strtol(str.c_str(), NULL, 10);
 	return false;
 }
 
@@ -65,6 +69,9 @@ void	ScalarConverter::convert(std::string str)
 
 	double	d = strtod(str.c_str(), NULL);
 	
+	// CAST CHAR
+	
+	
 	// CAST INT
 	if (is_int(str))
 		std::cout << "int: " << static_cast<int>(d) << std::endl;
@@ -92,3 +99,4 @@ void	ScalarConverter::convert(std::string str)
 		std::cout << "double: impossible" << std::endl;
 
 }
+*/

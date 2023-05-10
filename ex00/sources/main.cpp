@@ -6,7 +6,7 @@
 /*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 10:57:54 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/10 15:11:22 by vfuhlenb         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:57:36 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int	main(int argc, char **argv)
 		std::cerr << "wrong args || empty string" << std::endl;
 		return 1;
 	}
-	ScalarConverter::convert(argv[1]);
+	std::string str = argv[1];
+	double d = strtol(str.c_str(), NULL, 10);
+	std::cout << "int: " << static_cast<int>(d) << std::endl;
+	// ScalarConverter::convert(argv[1]);
 	return 0;
 }
