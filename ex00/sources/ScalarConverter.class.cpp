@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScalarConverter.class.hpp                          :+:      :+:    :+:   */
+/*   ScalarConverter.class.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 19:11:59 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/10 10:57:48 by vfuhlenb         ###   ########.fr       */
+/*   Created: 2023/05/10 10:56:33 by vfuhlenb          #+#    #+#             */
+/*   Updated: 2023/05/10 10:57:04 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCALAR_CONVERTER_H
-#define SCALAR_CONVERTER_H
+#include "../includes/ScalarConverter.class.hpp"
 
-#include <iostream>
-
-class ScalarConverter // static class (only static members)
+void	ScalarConverter::convert()
 {
-	public:
-		static void convert();
-
-	private:
-		ScalarConverter() {}
-		~ScalarConverter() {}
-};
-
-#endif
+	std::cout << "convert..." << std::endl;
+}
