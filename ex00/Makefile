@@ -6,11 +6,11 @@
 #    By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 19:11:13 by vfuhlenb          #+#    #+#              #
-#    Updated: 2023/05/10 12:49:54 by vfuhlenb         ###   ########.fr        #
+#    Updated: 2023/05/11 14:17:28 by vfuhlenb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = a.out
+NAME = scalar
 
 CC = c++
 
