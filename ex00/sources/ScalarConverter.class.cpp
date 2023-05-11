@@ -6,7 +6,7 @@
 /*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 10:56:33 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/11 17:47:06 by vfuhlenb         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:00:39 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,14 @@ static bool	is_int(const char* str)
 	return false;
 }
 
-static bool	pseudoLiterals_float(std::string str)
+static bool	pseudoLiterals_float(const std::string str)
 {
 	if (str == "+inff" || str == "-inff" || str == "nanf")
 		return true;
 	return false;
 }
 
-static bool	pseudoLiterals_double(std::string str)
+static bool	pseudoLiterals_double(const std::string str)
 {
 	if (str == "+inf" || str == "-inf" || str == "nan")
 		return true;
@@ -179,9 +179,9 @@ void	ScalarConverter::convert(std::string const convert)
 	if (is_int(str.c_str()))
 		std::cout << "float: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<float>(d) << "f" << std::endl;
 	else if ((convert.length() == 1 && convert.c_str()[0] >= ascii_min && convert.c_str()[0] <= ascii_max && !std::isdigit(convert.c_str()[0])))
-		std::cout << "float: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<float>(convert.c_str()[0]) << "f" << std::endl;
+		std::cout << "float: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<float>(convert.c_str()[0]) << "f" << std::setprecision(0) << std::endl;
 	else if (is_float(str.c_str()))
-		std::cout << "float: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<float>(d) << "f" << std::endl;
+		std::cout << "float: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<float>(d) << "f" << std::setprecision(0) << std::endl;
 	else if (pseudoLiterals_float(str))
 		std::cout << "float: " << str << std::endl;
 	else if (pseudoLiterals_double(str))
@@ -193,9 +193,9 @@ void	ScalarConverter::convert(std::string const convert)
 	if (is_int(str.c_str()))
 		std::cout << "double: " << std::fixed << std::showpoint << static_cast<double>(d) << std::endl;
 	else if ((convert.length() == 1 && convert.c_str()[0] >= ascii_min && convert.c_str()[0] <= ascii_max && !std::isdigit(convert.c_str()[0])))
-		std::cout << "double: " << std::fixed << std::showpoint << static_cast<double>(convert.c_str()[0]) << std::endl;
+		std::cout << "double: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<double>(convert.c_str()[0]) << std::setprecision(0) << std::endl;
 	else if (is_double(str.c_str()) || is_float(str.c_str()))
-		std::cout << "double: " << std::fixed << std::showpoint << static_cast<double>(d) << std::endl;
+		std::cout << "double: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<double>(d) << std::setprecision(0) << std::endl;
 	else if (pseudoLiterals_double(str))
 		std::cout << "double: " << str << std::endl;
 	else

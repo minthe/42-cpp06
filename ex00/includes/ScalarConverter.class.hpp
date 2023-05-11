@@ -6,7 +6,7 @@
 /*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:11:59 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/11 17:47:59 by vfuhlenb         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:56:32 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #include <string>
 #include <iomanip>
 #include <float.h>
+#include <cstdlib>
+#include <climits>
+#include <cfloat>
 
 
 class ScalarConverter // static class (only static members)
