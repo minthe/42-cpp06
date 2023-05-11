@@ -6,7 +6,7 @@
 /*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 10:56:33 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/11 18:49:54 by vfuhlenb         ###   ########.fr       */
+/*   Updated: 2023/05/11 19:01:24 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void	ScalarConverter::convert(std::string const convert)
 	int	ascii_print_min = 32;
 	int	ascii_print_max = 127;
 	
-	std::cout << "input: '" << d << "'" << std::endl; // DEBUG
+	// std::cout << "input: '" << d << "'" << std::endl; // DEBUG
 	
 	// CAST CHAR
 	if (convert.length() == 1 && convert.c_str()[0] >= ascii_print_min && convert.c_str()[0] <= ascii_print_max && !std::isdigit(convert.c_str()[0]))
