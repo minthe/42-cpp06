@@ -6,39 +6,44 @@
 /*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 10:56:33 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/11 15:35:41 by vfuhlenb         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:32:27 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ScalarConverter.class.hpp"
+#include <_ctype.h>
 #include <cctype>
 #include <cstdlib>
 
-static bool	is_int(const char* str)
+/* // decided to round values
+static bool	checkFractions(const char* str)
 {
-	int	min_range = INT_MIN;
-	int	max_range = INT_MAX;
-	double	d;
-
-	if (*str == '+' || *str == '-')
+	std::cout << "TEST: " << *str << std::endl;
+	if (*str == '.')
+	{
 		str++;
-	if (!isdigit(*str))
+		if (*str && *str == '0')
+		{
+			while (*str || *str != 'f')
+			{
+				str++;
+				if (*str != '0')
+					return false;
+			}
+			return true;
+		}
 		return false;
-	while (*str && isdigit(*str))
-		str++;
-	if (*str && !isdigit(*str))
-		return false;
-	d = strtod(str, NULL);
-	if (d >= min_range && d <= max_range)
-		return true;
+	}
 	return false;
 }
+*/
 
 static bool	is_float(const char* str)
 {
 	float	min_range = FLT_MIN;
 	float	max_range = FLT_MAX;
-	double	d;
+	double	d = strtod(str, NULL);
+	
 
 	if (*str == '+' || *str == '-')
 		str++;
@@ -55,7 +60,9 @@ static bool	is_float(const char* str)
 		str++;
 	if (*str && *str != 'f')
 		return false;
-	d = strtod(str, NULL);
+	str++;
+	if (*str)
+		return false;
 	if (d >= min_range && d <= max_range)
 		return true;
 	return false;
@@ -65,7 +72,7 @@ static bool	is_double(const char* str)
 {
 	double	min_range = DBL_MIN;
 	double	max_range = DBL_MAX;
-	double	d;
+	double	d = strtod(str, NULL);
 
 	if (*str == '+' || *str == '-')
 		str++;
@@ -80,10 +87,20 @@ static bool	is_double(const char* str)
 		return false;
 	while (*str && isdigit(*str))
 		str++;
-	if (*str == 'f')
+	if (*str == 'f' || !isdigit(*str))
 		return false;
-	d = strtod(str, NULL);
 	if (d >= min_range && d <= max_range)
+		return true;
+	return false;
+}
+
+static bool	is_int(const char* str)
+{
+	int	min_range = INT_MIN;
+	int	max_range = INT_MAX;
+	double	d = strtod(str, NULL);
+
+	if ((is_float(str) || is_double(str)) && (d >= min_range && d <= max_range))
 		return true;
 	return false;
 }
@@ -102,25 +119,51 @@ static bool	pseudoLiterals_double(std::string str)
 	return false;
 }
 
-void	ScalarConverter::convert(std::string str)
+static bool	onlyDigits(const char* str)
+{
+	for (int i = 0; str[i]; i++)
+	{
+		if (!std::isdigit(str[i]))
+			return false;
+	}
+	return true;
+}
+
+/*
+static int	skipWhitespace(const char* str) // decided not to use it
+{
+	int i = 0;
+	if (str[0] == ' ')
+	{
+		while (str[i] == ' ')
+			i++;
+	}
+	return i;
+}
+*/
+
+void	ScalarConverter::convert(std::string const convert)
 {
 
-	double	d = strtod(str.c_str(), NULL);
+	double	d = strtod(convert.c_str(), NULL);
+	std::string str;
+	// str = &convert.c_str()[skipWhitespace(convert.c_str())];
+	str = convert;
 	int	ascii_min = 0;
 	int	ascii_max = 255;
 	int	ascii_print_min = 32;
 	int	ascii_print_max = 127;
 	
-	std::cout << d << std::endl;
+	// std::cout << "input: '" << str << "'" << std::endl; // DEBUG
 	
 	// CAST CHAR
-	if (str.length() == 1 && str.c_str()[0] >= ascii_print_min && str.c_str()[0] <= ascii_print_max && !std::isdigit(str.c_str()[0]))
-		std::cout << "char: '" << static_cast<char>(str.c_str()[0]) << "'" << std::endl;
-	else if (d >= ascii_print_min && d <= ascii_print_max)
-		std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
-	else if (str.length() == 1 && str.c_str()[0] >= ascii_min && str.c_str()[0] <= ascii_max)
+	if (convert.length() == 1 && convert.c_str()[0] >= ascii_print_min && convert.c_str()[0] <= ascii_print_max && !std::isdigit(convert.c_str()[0]))
+		std::cout << "char: '" << static_cast<char>(convert.c_str()[0]) << "'" << std::endl;
+	else if (convert.length() == 1 && str.c_str()[0] >= ascii_min && str.c_str()[0] <= ascii_max)
 		std::cout << "char: Non displayable" << std::endl;
-	else if (d >= ascii_min && d <= ascii_max)
+	else if (d >= ascii_print_min && d <= ascii_print_max && is_int(str.c_str()))
+		std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
+	else if (onlyDigits(str.c_str()) && d >= ascii_min && d <= ascii_max)
 		std::cout << "char: Non displayable" << std::endl;
 	else
 		std::cout << "char: impossible" << std::endl;
@@ -128,6 +171,8 @@ void	ScalarConverter::convert(std::string str)
 	// CAST INT
 	if (is_int(str.c_str()))
 		std::cout << "int: " << static_cast<int>(d) << std::endl;
+	else if ((convert.length() == 1 && convert.c_str()[0] >= ascii_min && convert.c_str()[0] <= ascii_max && !std::isdigit(convert.c_str()[0])))
+		std::cout << "int: " << static_cast<int>(convert.c_str()[0]) << std::endl;
 	else if (pseudoLiterals_float(str) == true || pseudoLiterals_double(str) == true)
 		std::cout << "int: impossible" << std::endl;
 	else
@@ -136,6 +181,8 @@ void	ScalarConverter::convert(std::string str)
 	// CAST FLOAT
 	if (is_int(str.c_str()))
 		std::cout << "float: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<float>(d) << "f" << std::endl;
+	else if ((convert.length() == 1 && convert.c_str()[0] >= ascii_min && convert.c_str()[0] <= ascii_max && !std::isdigit(convert.c_str()[0])))
+		std::cout << "float: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<float>(convert.c_str()[0]) << "f" << std::endl;
 	else if (is_float(str.c_str()))
 		std::cout << "float: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<float>(d) << "f" << std::endl;
 	else if (pseudoLiterals_float(str))
@@ -148,6 +195,8 @@ void	ScalarConverter::convert(std::string str)
 	// CAST DOUBLE
 	if (is_int(str.c_str()))
 		std::cout << "double: " << std::fixed << std::showpoint << static_cast<double>(d) << std::endl;
+	else if ((convert.length() == 1 && convert.c_str()[0] >= ascii_min && convert.c_str()[0] <= ascii_max && !std::isdigit(convert.c_str()[0])))
+		std::cout << "double: " << std::fixed << std::showpoint << static_cast<double>(convert.c_str()[0]) << std::endl;
 	else if (is_double(str.c_str()) || is_float(str.c_str()))
 		std::cout << "double: " << std::fixed << std::showpoint << static_cast<double>(d) << std::endl;
 	else if (pseudoLiterals_double(str))

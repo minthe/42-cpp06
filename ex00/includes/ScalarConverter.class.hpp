@@ -6,7 +6,7 @@
 /*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:11:59 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/11 14:12:12 by vfuhlenb         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:51:33 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 class ScalarConverter // static class (only static members)
 {
 	public:
-		static void convert(std::string str);
+		static void convert(std::string const convert);
 
 	private:
 		ScalarConverter() {}
