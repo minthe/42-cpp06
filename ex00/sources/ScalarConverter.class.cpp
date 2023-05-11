@@ -6,14 +6,11 @@
 /*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 10:56:33 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/11 17:32:27 by vfuhlenb         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:47:06 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ScalarConverter.class.hpp"
-#include <_ctype.h>
-#include <cctype>
-#include <cstdlib>
 
 /* // decided to round values
 static bool	checkFractions(const char* str)
@@ -37,6 +34,16 @@ static bool	checkFractions(const char* str)
 	return false;
 }
 */
+
+static bool	onlyDigits(const char* str)
+{
+	for (int i = 0; str[i]; i++)
+	{
+		if (!std::isdigit(str[i]))
+			return false;
+	}
+	return true;
+}
 
 static bool	is_float(const char* str)
 {
@@ -100,7 +107,7 @@ static bool	is_int(const char* str)
 	int	max_range = INT_MAX;
 	double	d = strtod(str, NULL);
 
-	if ((is_float(str) || is_double(str)) && (d >= min_range && d <= max_range))
+	if ((is_float(str) || is_double(str) || onlyDigits(str)) && (d >= min_range && d <= max_range))
 		return true;
 	return false;
 }
@@ -117,16 +124,6 @@ static bool	pseudoLiterals_double(std::string str)
 	if (str == "+inf" || str == "-inf" || str == "nan")
 		return true;
 	return false;
-}
-
-static bool	onlyDigits(const char* str)
-{
-	for (int i = 0; str[i]; i++)
-	{
-		if (!std::isdigit(str[i]))
-			return false;
-	}
-	return true;
 }
 
 /*
