@@ -1,14 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Data.class.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/12 08:59:13 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/12 12:24:46 by vfuhlenb         ###   ########.fr       */
+/*   Created: 2023/05/12 12:34:46 by vfuhlenb          #+#    #+#             */
+/*   Updated: 2023/05/12 12:43:31 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Serializer.class.hpp"
+#include "../includes/Data.class.hpp"
 
+Data::Data() : _name("default name") {}
+Data::~Data() {}
+
+Data::Data(const Data& src)
+{
+	*this = src;
+}
+
+Data& Data::operator=(const Data& rhs)
+{
+	return *this;
+}
+
+std::string Data::getName() const
+{
+	return _name;
+}
