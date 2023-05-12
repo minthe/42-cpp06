@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.class.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfuhlenb <vfuhlenb@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 10:56:33 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/12 08:38:01 by vfuhlenb         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:58:37 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ScalarConverter.class.hpp"
+
+ScalarConverter::ScalarConverter() {}
+ScalarConverter::~ScalarConverter() {}
 
 int	ascii_min = 0;
 int	ascii_max = 255;
