@@ -6,7 +6,7 @@
 #    By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 19:11:13 by vfuhlenb          #+#    #+#              #
-#    Updated: 2023/05/12 17:05:54 by vfuhlenb         ###   ########.fr        #
+#    Updated: 2023/05/12 17:59:45 by vfuhlenb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,6 @@ CC = c++
 CFLAGS = -Wall -Werror -Wextra -std=c++98 -g
 
 SRCS =	sources/main.cpp \
-		sources/Base.class.cpp \
-		sources/A.class.cpp \
-		sources/B.class.cpp \
-		sources/C.class.cpp \	
 
 OBJS = ${SRCS:.cpp=.o}
 
