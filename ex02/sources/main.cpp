@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: vfuhlenb <vfuhlenb@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:54:51 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/12 21:54:22 by vfuhlenb         ###   ########.fr       */
+/*   Updated: 2023/05/12 20:05:24 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,21 @@ static void		identify(Base& p) // Explicit downcast with reference to class
 		std::cout << "identified: class A &" << std::endl;
 		return ;
 	}
-	catch (std::bad_cast &bc_a) {}
+	catch (std::exception &e) {}
 	try {
 		B& b = dynamic_cast<B&>(p);
 		(void)b;
 		std::cout << "identified: class B &" << std::endl;
 		return ;
 	}
-	catch (std::bad_cast &bc_b) {}
+	catch (std::exception &e) {}
 	try {
 		C& c = dynamic_cast<C&>(p);
 		(void)c;
 		std::cout << "identified: class C &" << std::endl;
 		return ;
 	}
-	catch (std::bad_cast &bc_c) {}
+	catch (std::exception &e) {}
 
 	std::cout << "no type identified" << std::endl;
 
