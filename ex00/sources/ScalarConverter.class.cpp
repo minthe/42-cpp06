@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.class.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: vfuhlenb <vfuhlenb@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 10:56:33 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/11 22:08:47 by vfuhlenb         ###   ########.fr       */
+/*   Updated: 2023/05/12 08:38:01 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,14 @@ static bool	is_int(const char* str)
 	else if (*str != '.')
 		return false;
 	str++;
+	if (!isdigit(*str))
+		return false;
 	while (isdigit(*str))
+	{
+		if (*str != '0')
+			return false;
 		str++;
+	}
 	if (*str && *str != 'f')
 		return false;
 	str++;
