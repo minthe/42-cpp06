@@ -6,7 +6,7 @@
 /*   By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 10:56:33 by vfuhlenb          #+#    #+#             */
-/*   Updated: 2023/05/12 12:58:37 by vfuhlenb         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:41:09 by vfuhlenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,6 @@ static bool	is_double(const char* str)
 
 static bool	is_int(const char* str)
 {
-	int	min_range = INT_MIN;
-	int	max_range = INT_MAX;
-	double	d = strtod(str, NULL);
-
 	if (*str == '+' || *str == '-')
 		str++;
 	if (!isdigit(*str))
@@ -87,12 +83,7 @@ static bool	is_int(const char* str)
 	while (*str && isdigit(*str))
 		str++;
 	if (*str == '\0')
-	{
-		if (d < min_range || d > max_range)
-			return false;
-		else
-			return true;
-	}
+		return true;
 	else if (*str != '.')
 		return false;
 	str++;
@@ -108,8 +99,6 @@ static bool	is_int(const char* str)
 		return false;
 	str++;
 	if (*str != '\0')
-		return false;
-	if (d < min_range || d > max_range)
 		return false;
 	return true;
 }
@@ -135,12 +124,12 @@ static void	castFloat(double const d, std::string const convert)
 		std::cout << "float: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<float>(convert.c_str()[0]) << "f" << std::endl;
 		return ;
 	}
-	else if (is_float(convert.c_str()))
+	else if (is_float(convert.c_str()) && (static_cast<float>(d) >= -std::numeric_limits<float>::max() && static_cast<float>(d) <= std::numeric_limits<float>::max()))
 	{
 		std::cout << "float: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<float>(d) << "f" << std::endl;
 		return ;
 	}
-	else if (is_double(convert.c_str()))
+	else if (is_double(convert.c_str()) && (static_cast<float>(d) >= -std::numeric_limits<float>::max() && static_cast<float>(d) <= std::numeric_limits<float>::max()))
 	{
 		std::cout << "float: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<float>(d) << "f" << std::endl;
 		return ;
@@ -160,7 +149,10 @@ static void	castFloat(double const d, std::string const convert)
 
 static void	castInt(double const d, std::string const convert)
 {
-	if (is_int(convert.c_str()))
+	(void)d;
+	long num = atol(convert.c_str());
+
+	if (is_int(convert.c_str()) && ((num > -2147483648 && num < 2147483647)))
 	{
 		std::cout << "int: " << static_cast<int>(d) << std::endl;
 		return ;
@@ -194,12 +186,7 @@ static void castDouble(double const d, std::string const convert)
 		std::cout << "double: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<double>(convert.c_str()[0]) << std::endl;
 		return ;
 	}
-	else if (is_double(convert.c_str()) || is_float(convert.c_str()))
-	{
-		std::cout << "double: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<double>(d) << std::endl;
-		return ;
-	}
-	else if (is_int(convert.c_str()))
+	else if ((is_double(convert.c_str()) || is_float(convert.c_str())) && (static_cast<double>(d) >= -std::numeric_limits<double>::max() && static_cast<double>(d) <= std::numeric_limits<double>::max()))
 	{
 		std::cout << "double: " << std::fixed << std::showpoint << std::setprecision(1) << static_cast<double>(d) << std::endl;
 		return ;
@@ -214,7 +201,8 @@ static void castDouble(double const d, std::string const convert)
 
 void	ScalarConverter::convert(std::string const convert)
 {
-	double	d = strtod(convert.c_str(), NULL);
+	double	d = atof(convert.c_str());
+	// double	d = strtod(convert.c_str(), NULL);
 	// std::cout << "input: '" << d << "'" << std::endl; // DEBUG
 
 	castChar(d, convert);
