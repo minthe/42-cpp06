@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vfuhlenb <vfuhlenb@student.42wolfsburg.    +#+  +:+       +#+         #
+#    By: vfuhlenb <vfuhlenb@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 19:11:13 by vfuhlenb          #+#    #+#              #
-#    Updated: 2023/05/12 00:14:15 by vfuhlenb         ###   ########.fr        #
+#    Updated: 2023/05/12 15:53:31 by vfuhlenb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ CC = c++
 CFLAGS = -Wall -Werror -Wextra -std=c++98 -g
 
 SRCS =	sources/main.cpp \
-		sources/ScalarConverter.class.cpp \
+		sources/Data.class.cpp \
+		sources/Serializer.class.cpp \
 
 OBJS = ${SRCS:.cpp=.o}
 
